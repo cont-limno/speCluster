@@ -23,9 +23,10 @@ similarity <- function(data, neighbors){
   return(similarity)
 }
 
-# ProduceU
-produceU <- function(similarity, ncol , type=2,
-                     all.eig = F){
+#' ProduceU
+#' @importFrom geigen geigen
+
+produceU <- function(similarity, ncol, type = 2, all.eig = F){
   # Given n by n similarity this function first calculate the Laplacian
   # matrix L then generate n by ncol matrix U of top ncol eigenvectors of L.
   #
@@ -58,7 +59,7 @@ if( type == 2){
   L <- as.matrix(L)
   D <- as.matrix(D)
   #start <- Sys.time()
-  eig <- geigen(L,D, symmetric=T)
+  eig <- geigen::geigen(L,D, symmetric=T)
   rm(L,D)
   #V <- eig$values
   U <- eig$vectors[,1:ncol]

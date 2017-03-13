@@ -1,0 +1,52 @@
+---
+title: "Walkthrough"
+author: "Joseph Stachelek"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Walkthrough
+
+## Load package
+
+```{r }
+library(spectraling)
+```
+
+## Read data
+
+```{r }
+dataTerr     <- read.csv("../data/terrData.csv", header = T)
+dataFW       <- read.csv("../data/freshData.csv", header = T)
+i <- which(colnames(dataFW) == "hu12_states")
+dataTerrFW   <- merge(dataTerr, dataFW[-i], by.x = "zoneid", by.y = "zoneid")
+islands      <- read.csv("../data/islandIdx.csv", header = T)
+latLong18876 <- read.csv("../data/latLong18876.csv", header = T)
+NB18876      <- read.csv("../data/NB_18876.csv", header = T)
+```
+
+## Prep Input
+
+```{r prep input}
+# generate the input when we restrict the
+# data to dataTerrFW's of state Missouri, 
+# and no islands inculded.
+input <- generateData(type = dataTerrFW, islands = islands, 
+                      latLong = latLong18876, NB18876, islandsIn = F, 
+                      states = c("MO"), conFactor = 1)
+```
+
+```{r }
+results <- speCluster(data = input$data, conMatrix = input$conMatrix, 
+                      cluster.number = 10)
+summary(results)
+results$SS
+head(results$clusters)
+mapping(lat = input$latLong[,1], long = input$latLong[,2],
+         clusters = results$clusters)
+
+```

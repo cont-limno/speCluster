@@ -4,18 +4,19 @@
 \alias{generateData}
 \title{generateData}
 \usage{
-generateData(type, islandsIn = F, states = vector(), conFactor = 1)
+generateData(type, islands, latLong, NB18876, islandsIn = F,
+  states = vector(), conFactor = 1)
 }
 \arguments{
 \item{type}{three options "dataTerr", "dataFW", and "dataTerrFW"}
+
+\item{islands}{vector of islands?}
 
 \item{states}{a vector of states names that have to be included}
 
 \item{conFactor}{contiguity constraint factor}
 
 \item{islandIn}{if T the islands will be included}
-
-\item{islands}{vector of islands?}
 }
 \value{
 a list with three elements: data, conMatrix, and latLong
@@ -30,9 +31,10 @@ dataFW       <- read.csv("data/freshData.csv", header = T)
 i <- which(colnames(dataFW) == "hu12_states")
 dataTerrFW   <- merge(dataTerr, dataFW[-i], by.x = "zoneid", by.y = "zoneid")
 islands      <- read.csv("data/islandIdx.csv", header = T)
+latLong18876 <- read.csv("data/latLong18876.csv", header = T)
+NB18876      <- read.csv("data/NB_18876.csv", header = T)
 
-input <- generateData(type = dataTerrFW, islands, islandsIn = F,
-         states = c("MO"),conFactor=1)
+input <- generateData(type = dataTerrFW, islands = islands, latLong = latLong18876, NB18876, islandsIn = F, states = c("MO"), conFactor = 1)
 }
 }
 

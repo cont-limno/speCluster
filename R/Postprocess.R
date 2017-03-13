@@ -35,24 +35,20 @@ sumSquares <- function(data, clusters){
   return(out)
 }
 
-mapping <- function( long,lat ,clusters){
-  # Useing map database draw cluster on the US Map
-  #
-  # Args:
-  #     long: A numeric vector of  longitude location of the points.
-  #     lat: A numeric vector of latitude location of the points.
-  #     clusters: The  vector of integers indicating the
-  #               cluster to which each point is allocated.
-  #
-  #
-  # Error handeling
+#' mapping
+#' @description Using map database draw cluster on the US Map
+#' @param  long A numeric vector of  longitude location of the points.
+#' @param  lat A numeric vector of latitude location of the points.
+#' @param  clusters The  vector of integers indicating the cluster to which each point is allocated.
+#' @export
 
-  map("state",xlim=c(-98,-65),ylim=c(35,50),col='gray90',fill=TRUE)
+mapping <- function(long, lat, clusters){
+  map("state", xlim = c(-98, -65), ylim = c(35, 50), col = 'gray90', fill = TRUE)
   cluster.number <- max(clusters)
   map.axes()
   for(i in 1:cluster.number){
-    j <- clusters==i
-    points(long[j],lat[j],pch=19,col=i,cex=0.25)
+    j <- clusters == i
+    points(long[j], lat[j], pch = 19, col = i, cex = 0.25)
   }
 }
 
