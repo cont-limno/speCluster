@@ -32,7 +32,7 @@ speCluster <- function(data, conMatrix, cluster.number,
                        iter.max=400, repetition= 400 ){
 
   # Preprocess
-  outId <-outlierDetector(data)
+  outId <- outlierDetector(data)
   dataAfterPC <- prinComp(data=data,outId=outId)
   rm(data)
 

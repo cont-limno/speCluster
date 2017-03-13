@@ -60,19 +60,29 @@ stepTwo <- function(data, U, cluster.number= cluster.number,
   return(out)
 }
 
-generateData <- function(type, islandsIn =F , states= vector(), conFactor=1 ){
-  # Generate the data for clustering
-  #
-  #
-  # Args:
-  #     type: three options "dataTerr", "dataFW", and "dataTerrFW"
-  #     islandIn: if T the islands will be included
-  #     states: a vector of states names that have to be included
-  #     conFactor:    contiguity constraint factor
-  # Returns:
-  #    out: a list with three elements: data, conMatrix, and latLong
-  #
-  # Error handeling
+
+#' generateData
+#' @description Generate the data for clustering
+#' @param type three options "dataTerr", "dataFW", and "dataTerrFW"
+#' @param islandIn if T the islands will be included
+#' @param islands vector of islands?
+#' @param states a vector of states names that have to be included
+#' @param conFactor    contiguity constraint factor
+#' @export
+#' @return a list with three elements: data, conMatrix, and latLong
+#' @examples \dontrun{
+#' dataTerr     <- read.csv("data/terrData.csv", header = T)
+#' dataFW       <- read.csv("data/freshData.csv", header = T)
+#' i <- which(colnames(dataFW) == "hu12_states")
+#' dataTerrFW   <- merge(dataTerr, dataFW[-i], by.x = "zoneid", by.y = "zoneid")
+#' islands      <- read.csv("data/islandIdx.csv", header = T)
+#' latLong18876 <- read.csv("data/latLong18876.csv", header = T)
+#' NB18876      <- read.csv("data/NB_18876.csv", header = T)
+#'
+#' input <- generateData(type = dataTerrFW, islands = islands, latLong = latLong18876, NB18876, islandsIn = F, states = c("MO"), conFactor = 1)
+#' }
+
+generateData <- function(type, islands, latLong, NB18876, islandsIn = F, states = vector(), conFactor = 1){
   #type
   if(!identical(type, dataFW)&
      !identical(type, dataTerrFW) &
@@ -101,7 +111,7 @@ generateData <- function(type, islandsIn =F , states= vector(), conFactor=1 ){
   # finding the row index
   index <- rep(T, nrow(type))
   # make index of islands False if islands are not included
-  if(islandsIn==F){
+  if(islandsIn == F){
     index [c(islands)$x] <- F
   }
 
@@ -110,7 +120,7 @@ generateData <- function(type, islandsIn =F , states= vector(), conFactor=1 ){
     outStates <- allStates[!allStates %in% states]
     for(i in 1:length(outStates)){
       state <- outStates[i]
-      id <- grepl(state,type$hu12_states)|id
+      id <- grepl(state, type$hu12_states)|id
     }
     index <- index & !id
   }
@@ -130,9 +140,27 @@ generateData <- function(type, islandsIn =F , states= vector(), conFactor=1 ){
   }
   #
 
-  latLong <- latLong18876[index,]
-  NB <- NBindex(index)
-  conMatrix <- neighborMatrix(NB,conFactor = conFactor)
-  out <- list(data=data, conMatrix = conMatrix, latLong = latLong)
+  latLong <- latLong[index,]
+  NB <- NBindex(index, NB18876)
+  conMatrix <- neighborMatrix(NB, conFactor = conFactor)
+  out <- list(data = data, conMatrix = conMatrix, latLong = latLong)
   return(out)
   }
+
+NBindex <- function(index, NB18876){
+  id <- which(index)
+  NB <- data.frame()
+  for(i in 1:nrow(NB18876)){
+    if( (NB18876[i,"row"] %in% id) &
+        (NB18876[i,"neighbor"] %in% id)){
+      NB <- rbind(NB, NB18876[i,c("row", "neighbor")])
+    }
+  }
+  hash <- 1:length(id)
+  names(hash) <- id
+  for(i in 1:nrow(NB)){
+    NB[i,1] <- hash[as.character(NB[i,1])]
+    NB[i,2] <- hash[as.character(NB[i,2])]
+  }
+  return( NB)
+}

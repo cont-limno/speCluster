@@ -51,10 +51,10 @@ produceU <- function(similarity, ncol , type=2,
 #calculate degree matrix
   diag <- apply(similarity , 1 , sum)
   l <- length(diag)
-  D <- sparseMatrix(1:l,1:l,x=diag)
+  D <- Matrix::sparseMatrix(1:l,1:l,x=diag)
   L <- D - similarity
 # Compute Normalized Laplacian
-if( type==2){
+if( type == 2){
   L <- as.matrix(L)
   D <- as.matrix(D)
   #start <- Sys.time()
@@ -71,7 +71,7 @@ if(type ==3){
   # calculate D^(-1/2)
   diag <- sqrt(diag)
   diag <- 1/diag
-  D <- sparseMatrix(1:l,1:l,x=diag)
+  D <- Matrix::sparseMatrix(1:l,1:l,x=diag)
   #Calcualte Normalized Laplacian
   L <- D%*%L%*%D
 }

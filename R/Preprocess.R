@@ -14,12 +14,13 @@ neighborMatrix <- function(NB,conFactor=1){
   # Error handeling
 
 
-  conMatrix <- sparseMatrix(NB[,1],NB[,2],x=rep(1,nrow(NB)))
+  conMatrix <- Matrix::sparseMatrix(NB[,1],NB[,2],x=rep(1,nrow(NB)))
   if(conFactor >=2){
     n <- nrow(conMatrix)
-    nb <- sparseMatrix(dims =c(nrow(conMatrix),ncol(conMatrix)),i={},j={})
+    nb <- Matrix::sparseMatrix(dims = c(nrow(conMatrix),
+                                        ncol(conMatrix)), i = {}, j = {})
     #saprse identity matrix
-    NBt <- sparseMatrix(1:n,1:n, x= rep(1,n))
+    NBt <- Matrix::sparseMatrix(1:n,1:n, x= rep(1,n))
     for(i in 1:conFactor){
       NBt <- NBt%*%conMatrix
       nb <- nb + NBt
