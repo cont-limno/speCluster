@@ -6,6 +6,6 @@ https://github.com/cont-limno/SpectralClustering4Regions
 
 ## Citation
 
-Spectral Clustering Code for _Creating Multithemed Ecological Regions for Macroscale Ecology_ ([Cheruvelil et al. 2017](https://dx.doi.org/10.1002/ece3.2884))
+_Creating Multithemed Ecological Regions for Macroscale Ecology_ ([Cheruvelil et al. 2017](https://dx.doi.org/10.1002/ece3.2884))
 
 
