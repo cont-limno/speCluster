@@ -1,0 +1,9 @@
+Package: spectraling
+Title: Spectral Clustering in R
+Version: 0.0.0.9000
+Authors@R: c(person("Joseph", "Stachelek", email = "stachel2@msu.edu", role = c("aut", "cre")))
+Description: Spectral clustering in R.
+Depends: R (>= 3.3.2)
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
