@@ -8,7 +8,7 @@
 
 #' speCluster
 #' @description Perform Spectral Clustering on a data matrix
-#' @param data A numeric data frame or matrix.
+#' @param data A numeric data frame or matrix where columns represent variables and rows represent locations
 #' @param conMatrix Contiguity matrix.
 #' @param cluster.number The number of clusters.
 #' @param iter.max The maximum number of iterations allowed for kmeans step.

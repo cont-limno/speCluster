@@ -17,9 +17,9 @@ neighborMatrix <- function(NB, conFactor = 1){
 
   if(conFactor >= 2){
     n <- nrow(conMatrix)
-    nb <- Matrix::sparseMatrix(dims = c(nrow(conMatrix),
-                                        ncol(conMatrix)), i = {}, j = {})
-    #saprse identity matrix
+    nb <- Matrix::sparseMatrix(i = {}, j = {}, dims = c(nrow(conMatrix),
+                                                        ncol(conMatrix)))
+    #sparse identity matrix
     NBt <- Matrix::sparseMatrix(1:n, 1:n, x = rep(1,n))
     for(i in 1:conFactor){
       NBt <- NBt %*% conMatrix
@@ -29,7 +29,8 @@ neighborMatrix <- function(NB, conFactor = 1){
     diag(nb) <- 0
     conMatrix <- nb
   }
-  return(conMatrix)
+
+  conMatrix
 }
 
 outlierDetector <- function(data, outlier.Threshold = 0.2 ){
