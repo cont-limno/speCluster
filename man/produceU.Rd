@@ -4,7 +4,7 @@
 \alias{produceU}
 \title{ProduceU}
 \usage{
-produceU(similarity, ncol, type = 2, all.eig = F)
+produceU(similarity, ncol, type = 2, all.eig = FALSE)
 }
 \arguments{
 \item{similarity}{an n by n matrix}

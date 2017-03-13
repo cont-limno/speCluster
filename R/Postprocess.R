@@ -26,7 +26,7 @@ sumSquares <- function(data, clusters){
     j <- clusters==i
     D <- data[j,]
     centerw <- apply(D,2,mean)
-    for(k in 1: nrow(D)){
+    for(k in seq_len(nrow(D))){
     ssw[i]<- ssw[i] + sum((D[k,]-centerw)^2)
     }
     ssb[i] <- sum(j)*sum((centerw-center)^2)
@@ -45,7 +45,8 @@ sumSquares <- function(data, clusters){
 #' @export
 
 mapping <- function(long, lat, clusters){
-  map("state", xlim = c(-98, -65), ylim = c(35, 50), col = 'gray90', fill = TRUE)
+  maps::map("state", xlim = c(-98, -65), ylim = c(35, 50),
+            col = 'gray90', fill = TRUE)
   cluster.number <- max(clusters)
   maps::map.axes()
   for(i in 1:cluster.number){

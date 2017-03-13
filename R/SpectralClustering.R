@@ -27,7 +27,7 @@ similarity <- function(data, neighbors){
 #' @return n by ncol numeric matrix that contains the ncol tops
 #'        eigenvectors of Laplacian matrix as column
 
-produceU <- function(similarity, ncol, type = 2, all.eig = F){
+produceU <- function(similarity, ncol, type = 2, all.eig = FALSE){
 
   if (!is.element(type,1:3)){
     stop("argument type must be on of 1,2,or 3")
@@ -46,7 +46,7 @@ if( type == 2){
   L <- as.matrix(L)
   D <- as.matrix(D)
   #start <- Sys.time()
-  eig <- geigen::geigen(L,D, symmetric=T)
+  eig <- geigen::geigen(L,D, symmetric = TRUE)
   rm(L,D)
   #V <- eig$values
   U <- eig$vectors[,1:ncol]
@@ -77,10 +77,11 @@ if(all.eig){
 if(type==1){
   return(U)
 }
-# In case of the Jordan-Weiss algorithm, we need to normalize the eigenvectors row-wise
+# In case of the Jordan-Weiss algorithm,
+# we need to normalize the eigenvectors row-wise
 if(type==3){
   s <- sqrt(apply(U^2,1,sum))
-  for(i in 1:nrow(U)){
+  for(i in seq_len(nrow(U))){
     U[i,] <- U[i,]/s[i]
   }
   return(U)

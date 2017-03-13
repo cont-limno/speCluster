@@ -4,7 +4,7 @@
 \alias{generateData}
 \title{generateData}
 \usage{
-generateData(type, islands, latLong, NB18876, islandsIn = F,
+generateData(type, islands, latLong, NB18876, islandsIn = FALSE,
   states = vector(), conFactor = 1)
 }
 \arguments{
@@ -16,7 +16,7 @@ generateData(type, islands, latLong, NB18876, islandsIn = F,
 
 \item{NB18876}{neighbor data.frame?}
 
-\item{islandsIn}{if T the islands will be included}
+\item{islandsIn}{if TRUE the islands will be included}
 
 \item{states}{a vector of states names that have to be included}
 
@@ -30,16 +30,16 @@ Generate the data for clustering
 }
 \examples{
 \dontrun{
-dataTerr     <- read.csv("data-raw/terrData.csv", header = T)
-dataFW       <- read.csv("data-raw/freshData.csv", header = T)
+dataTerr     <- read.csv("data-raw/terrData.csv", header = TRUE)
+dataFW       <- read.csv("data-raw/freshData.csv", header = TRUE)
 i <- which(colnames(dataFW) == "hu12_states")
 dataTerrFW   <- merge(dataTerr, dataFW[-i], by.x = "zoneid", by.y = "zoneid")
-islands      <- read.csv("data-raw/islandIdx.csv", header = T)
-latLong18876 <- read.csv("data-raw/latLong18876.csv", header = T)
-NB18876      <- read.csv("data-raw/NB_18876.csv", header = T)
+islands      <- read.csv("data-raw/islandIdx.csv", header = TRUE)
+latLong18876 <- read.csv("data-raw/latLong18876.csv", header = TRUE)
+NB18876      <- read.csv("data-raw/NB_18876.csv", header = TRUE)
 
 input <- generateData(type = dataTerrFW, islands = islands,
-latLong = latLong18876, NB18876, islandsIn = F, states = c("MO"),
+latLong = latLong18876, NB18876, islandsIn = FALSE, states = c("MO"),
 conFactor = 1)
 }
 }

@@ -64,30 +64,31 @@ stepTwo <- function(data, U, cluster.number= cluster.number,
 #' generateData
 #' @description Generate the data for clustering
 #' @param type three options "dataTerr", "dataFW", and "dataTerrFW"
-#' @param islandsIn if T the islands will be included
+#' @param islandsIn if TRUE the islands will be included
 #' @param islands vector of islands?
 #' @param latLong coordinates
 #' @param NB18876 neighbor data.frame?
 #' @param states a vector of states names that have to be included
-#' @param conFactor    contiguity constraint factor
+#' @param conFactor contiguity constraint factor
 #' @importFrom stats var
 #' @export
 #' @return a list with three elements: data, conMatrix, and latLong
 #' @examples \dontrun{
-#' dataTerr     <- read.csv("data-raw/terrData.csv", header = T)
-#' dataFW       <- read.csv("data-raw/freshData.csv", header = T)
+#' dataTerr     <- read.csv("data-raw/terrData.csv", header = TRUE)
+#' dataFW       <- read.csv("data-raw/freshData.csv", header = TRUE)
 #' i <- which(colnames(dataFW) == "hu12_states")
 #' dataTerrFW   <- merge(dataTerr, dataFW[-i], by.x = "zoneid", by.y = "zoneid")
-#' islands      <- read.csv("data-raw/islandIdx.csv", header = T)
-#' latLong18876 <- read.csv("data-raw/latLong18876.csv", header = T)
-#' NB18876      <- read.csv("data-raw/NB_18876.csv", header = T)
+#' islands      <- read.csv("data-raw/islandIdx.csv", header = TRUE)
+#' latLong18876 <- read.csv("data-raw/latLong18876.csv", header = TRUE)
+#' NB18876      <- read.csv("data-raw/NB_18876.csv", header = TRUE)
 #'
 #' input <- generateData(type = dataTerrFW, islands = islands,
-#' latLong = latLong18876, NB18876, islandsIn = F, states = c("MO"),
+#' latLong = latLong18876, NB18876, islandsIn = FALSE, states = c("MO"),
 #' conFactor = 1)
 #' }
 
-generateData <- function(type, islands, latLong, NB18876, islandsIn = F, states = vector(), conFactor = 1){
+generateData <- function(type, islands, latLong, NB18876, islandsIn = FALSE,
+                         states = vector(), conFactor = 1){
   #islandsIn
   if(!is.logical(islandsIn)){
     stop("islandsIn must be logical variable.")
@@ -106,16 +107,16 @@ generateData <- function(type, islands, latLong, NB18876, islandsIn = F, states 
   }
 
   # finding the row index
-  index <- rep(T, nrow(type))
+  index <- rep(TRUE, nrow(type))
   # make index of islands False if islands are not included
-  if(islandsIn == F){
-    index [c(islands)$x] <- F
+  if(islandsIn == FALSE){
+    index [c(islands)$x] <- FALSE
   }
 
   if(length(states)>0){
-    id <- rep(F, nrow(type))
+    id <- rep(FALSE, nrow(type))
     outStates <- allStates[!allStates %in% states]
-    for(i in 1:length(outStates)){
+    for(i in seq_along(outStates)){
       state <- outStates[i]
       id <- grepl(state, type$hu12_states)|id
     }
@@ -147,15 +148,15 @@ generateData <- function(type, islands, latLong, NB18876, islandsIn = F, states 
 NBindex <- function(index, NB18876){
   id <- which(index)
   NB <- data.frame()
-  for(i in 1:nrow(NB18876)){
+  for(i in seq_len(nrow(NB18876))){
     if( (NB18876[i,"row"] %in% id) &
         (NB18876[i,"neighbor"] %in% id)){
       NB <- rbind(NB, NB18876[i,c("row", "neighbor")])
     }
   }
-  hash <- 1:length(id)
+  hash <- seq_along(id)
   names(hash) <- id
-  for(i in 1:nrow(NB)){
+  for(i in seq_len(nrow(NB))){
     NB[i,1] <- hash[as.character(NB[i,1])]
     NB[i,2] <- hash[as.character(NB[i,2])]
   }

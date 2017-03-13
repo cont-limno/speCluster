@@ -78,12 +78,13 @@ outlierDetector <- function(data, outlier.Threshold = 0.2 ){
 #' @return dataNew: After Principal component data
 #' @importFrom stats prcomp
 
-prinComp <- function(data, outId, showPC = F){
+prinComp <- function(data, outId, showPC = FALSE){
 
   outSize <-sum(outId)
   if(outSize!=0){
     colmean <- apply(data,2,mean)
-    data[outId,] <- matrix(colmean, nrow=outSize, ncol= length(colmean), byrow=T )
+    data[outId,] <- matrix(colmean, nrow = outSize, ncol= length(colmean),
+                           byrow = TRUE)
   }
   rm(colmean,outSize)
   pc <- stats::prcomp(data,scale=TRUE, center=TRUE)

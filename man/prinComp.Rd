@@ -4,7 +4,7 @@
 \alias{prinComp}
 \title{prinComp}
 \usage{
-prinComp(data, outId, showPC = F)
+prinComp(data, outId, showPC = FALSE)
 }
 \arguments{
 \item{data}{a numeric data frame or matrix}
