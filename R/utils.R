@@ -89,76 +89,82 @@ stepTwo <- function(data, U, cluster.number= cluster.number,
 
 generateData <- function(type, islands, latLong, NB18876, islandsIn = FALSE,
                          states = vector(), conFactor = 1){
-  #islandsIn
+
   if(!is.logical(islandsIn)){
     stop("islandsIn must be logical variable.")
   }
-  #states
+
   allStates <- levels(type$hu12_states)
-  allStates <- allStates[nchar(allStates)==2]
+  allStates <- allStates[nchar(allStates) == 2]
   if(!is.vector(states)){
     print(allStates)
-    stop("The state variable must be a vectore containing a subset of
+    stop("The state variable must be a vector containing a subset of
          the above state list")
   }
   if(sum(states %in% allStates)!= length(states)){
-    stop("The state variable must be a vectore containing a subset of
+    stop("The state variable must be a vector containing a subset of
          the above state list")
   }
 
   # finding the row index
   index <- rep(TRUE, nrow(type))
+
   # make index of islands False if islands are not included
   if(islandsIn == FALSE){
-    index [c(islands)$x] <- FALSE
+    index[c(islands)$x] <- FALSE
   }
 
-  if(length(states)>0){
+  if(length(states) > 0){
     id <- rep(FALSE, nrow(type))
     outStates <- allStates[!allStates %in% states]
     for(i in seq_along(outStates)){
       state <- outStates[i]
-      id <- grepl(state, type$hu12_states)|id
+      id <- grepl(state, type$hu12_states) | id
     }
     index <- index & !id
   }
 
   # generate the output data
-  data <- type[index,-c(1,2)]
-  n <- nrow(data)
-  m <- ncol(data)
+  data <- type[index, -c(1, 2)]
+  n    <- nrow(data)
+  m    <- ncol(data)
   data <- as.matrix(data)
   data <- as.numeric(data)
-  data <- matrix(data,nrow=n,ncol=m)
+  data <- matrix(data, nrow = n, ncol = m)
+
   # Delete the constant columns
-  colSum <- apply(data, 2, stats::var)
-  constants <- which(colSum==0)
-  if(length(constants)!=0){
+  colSum    <- apply(data, 2, stats::var)
+  constants <- which(colSum == 0)
+  if(length(constants) != 0){
     data <- data[,-constants]
   }
-  #
 
-  latLong <- latLong[index,]
-  NB <- NBindex(index, NB18876)
+  browser()
+  latLong   <- latLong[index,]
+
+  NB        <- NBindex(index, NB18876)
   conMatrix <- neighborMatrix(NB, conFactor = conFactor)
-  out <- list(data = data, conMatrix = conMatrix, latLong = latLong)
-  return(out)
-  }
+
+  list(data = data, conMatrix = conMatrix, latLong = latLong)
+}
 
 NBindex <- function(index, NB18876){
   id <- which(index)
   NB <- data.frame()
+
   for(i in seq_len(nrow(NB18876))){
     if( (NB18876[i,"row"] %in% id) &
         (NB18876[i,"neighbor"] %in% id)){
       NB <- rbind(NB, NB18876[i,c("row", "neighbor")])
     }
   }
+
   hash <- seq_along(id)
   names(hash) <- id
   for(i in seq_len(nrow(NB))){
     NB[i,1] <- hash[as.character(NB[i,1])]
     NB[i,2] <- hash[as.character(NB[i,2])]
   }
-  return( NB)
+
+  return(NB)
 }

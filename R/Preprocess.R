@@ -3,7 +3,7 @@
 # and outputs
 
 
-neighborMatrix <- function(NB,conFactor=1){
+neighborMatrix <- function(NB, conFactor = 1){
   # Compute constraint Matrix
   #
   # Args:
@@ -13,24 +13,25 @@ neighborMatrix <- function(NB,conFactor=1){
   #     conMatrix: Contiguity Matrix
   # Error handeling
 
+  conMatrix <- Matrix::sparseMatrix(NB[,1], NB[,2], x = rep(1, nrow(NB)))
 
-  conMatrix <- Matrix::sparseMatrix(NB[,1],NB[,2],x=rep(1,nrow(NB)))
-  if(conFactor >=2){
+  if(conFactor >= 2){
     n <- nrow(conMatrix)
     nb <- Matrix::sparseMatrix(dims = c(nrow(conMatrix),
                                         ncol(conMatrix)), i = {}, j = {})
     #saprse identity matrix
-    NBt <- Matrix::sparseMatrix(1:n,1:n, x= rep(1,n))
+    NBt <- Matrix::sparseMatrix(1:n, 1:n, x = rep(1,n))
     for(i in 1:conFactor){
-      NBt <- NBt%*%conMatrix
-      nb <- nb + NBt
+      NBt <- NBt %*% conMatrix
+      nb  <- nb + NBt
     }
-    nb[nb!=0]<-1
-    diag(nb)<-0
+    nb[nb != 0] <- 1
+    diag(nb) <- 0
     conMatrix <- nb
   }
   return(conMatrix)
 }
+
 outlierDetector <- function(data, outlier.Threshold = 0.2 ){
   # Compute the outlier of the data using Principal component
   #
@@ -42,7 +43,6 @@ outlierDetector <- function(data, outlier.Threshold = 0.2 ){
   #    outId: A logical vecotor which specifies all the outliers.
   #
   # Error handeling
-
 
   #Principal Component
   pc <- stats::prcomp(data,scale=TRUE, center=TRUE)

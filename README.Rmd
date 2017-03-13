@@ -56,7 +56,7 @@ NB18876      <- read.csv("data-raw/NB_18876.csv", header = T)
 # data to dataTerrFW's of state Missouri, 
 # and no islands inculded.
 input <- generateData(type = dataTerrFW, islands = islands, 
-                      latLong = latLong18876, NB18876, islandsIn = F, 
+                      latLong = latLong18876, NB18876, islandsIn = FALSE, 
                       states = c("MO"), conFactor = 1)
 ```
 
