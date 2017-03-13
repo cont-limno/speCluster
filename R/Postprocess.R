@@ -1,23 +1,23 @@
-######################################################
+
 #File description comment, including purpose of program, inputs
 # and outputs
 
-######################################################
+
 sumSquares <- function(data, clusters){
-  # Given the data and clusters vector this function computes 
+  # Given the data and clusters vector this function computes
   # the between and within sum squered errors
   #
   # Args:
-  #      data: After Principal component data  
+  #      data: After Principal component data
   #      clusters: The  vector of integers indicating the
   #                cluster to which each point is allocated.
   #
   # Returns:
   #      A list with two values SSW for Sum Squered Within
   #      and SSB for Sum Squered Between
-  # 
+  #
   # Error handeling
-  ####################################################
+
   cluster.number <- max(clusters)
   ssw <- rep(0,cluster.number)
   ssb <- rep(0,cluster.number)
@@ -27,7 +27,7 @@ sumSquares <- function(data, clusters){
     D <- data[j,]
     centerw <- apply(D,2,mean)
     for(k in 1: nrow(D)){
-    ssw[i]<- ssw[i] + sum((D[k,]-centerw)^2) 
+    ssw[i]<- ssw[i] + sum((D[k,]-centerw)^2)
     }
     ssb[i] <- sum(j)*sum((centerw-center)^2)
   }
@@ -46,7 +46,7 @@ mapping <- function( long,lat ,clusters){
   #
   #
   # Error handeling
-  ####################################################
+
   map("state",xlim=c(-98,-65),ylim=c(35,50),col='gray90',fill=TRUE)
   cluster.number <- max(clusters)
   map.axes()
@@ -54,6 +54,6 @@ mapping <- function( long,lat ,clusters){
     j <- clusters==i
     points(long[j],lat[j],pch=19,col=i,cex=0.25)
   }
-}  
+}
 
 

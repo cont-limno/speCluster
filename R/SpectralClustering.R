@@ -1,34 +1,34 @@
-############################################
+
 # Similarity
 similarity <- function(data, neighbors){
   # Compute similarity matrix then multiply it to
   # contiguity matrix
-  # 
+  #
   # Args:
-  #     data: n by p numeric matrix or data frame. 
-  #     neighbors: n by n numeric matrix which specifies 
+  #     data: n by p numeric matrix or data frame.
+  #     neighbors: n by n numeric matrix which specifies
   #                contiguity matrix.
   #
   # Returns:
   #    similarity: The similarity matrix
-  # 
+  #
   # Error handeling
-  ####################################################
+
   #Similarity
   dist <- as.matrix(dist(data) )
   sigma <- median(dist)
   dist <- exp(-dist^2/(2*sigma^2))
-  
+
   similarity <- dist*neighbors
   return(similarity)
 }
-############################################
+
 # ProduceU
-produceU <- function(similarity, ncol , type=2, 
+produceU <- function(similarity, ncol , type=2,
                      all.eig = F){
-  # Given n by n similarity this function first calculate the Laplacian 
+  # Given n by n similarity this function first calculate the Laplacian
   # matrix L then generate n by ncol matrix U of top ncol eigenvectors of L.
-  # 
+  #
   # Args:
   #     similarity: an n by n matrix
   #     type: The algrithm that should be choosen. options are 1, 2, and 3
@@ -37,17 +37,17 @@ produceU <- function(similarity, ncol , type=2,
   #              should be compute or not
   #
   # Returns:
-  #    U: n by ncol numeric matrix that contains the ncol tops 
+  #    U: n by ncol numeric matrix that contains the ncol tops
   #       eigenvectors of Laplacian matrix as column
-  # 
-  # Error handeling   
+  #
+  # Error handeling
   if (!is.element(type,1:3)){
     stop("argument type must be on of 1,2,or 3")
   }
   if(type==2){
     warning("Tُype 2 algorithm might  need more than 4.0 G Ram")
   }
-  
+
 #calculate degree matrix
   diag <- apply(similarity , 1 , sum)
   l <- length(diag)
@@ -62,7 +62,7 @@ if( type==2){
   rm(L,D)
   #V <- eig$values
   U <- eig$vectors[,1:ncol]
-  #Sys.time()-start	
+  #Sys.time()-start
   return(U)
 }
 if(type ==3){
@@ -99,9 +99,9 @@ if(type==3){
 }
 
 }
-############################################
+
 # kmeansU
-kmeansU<- function(data , cluster.number , 
+kmeansU<- function(data , cluster.number ,
                    repetition = 400, iter.max = 400 ){
   # Perform k-means clustering on the U matrix.
   #
@@ -115,11 +115,11 @@ kmeansU<- function(data , cluster.number ,
   # Returns:
   #         cluster: A vector of integers(from 1:cluster.number)
   #                  indicating the cluster to each point is allocated
-  # 
+  #
   # Error handeling
-  ####################################################
+
   data <- data[,1:cluster.number]
-  out <-kmeans(data, centers= cluster.number, 
+  out <-kmeans(data, centers= cluster.number,
                nstart=repetition, iter.max = iter.max)
   return(out$cluster)
 }

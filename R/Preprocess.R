@@ -1,19 +1,19 @@
-######################################################
+
 #File description comment, including purpose of program, inputs
 # and outputs
 
-######################################################
+
 neighborMatrix <- function(NB,conFactor=1){
-  # Compute constraint Matrix 
-  # 
+  # Compute constraint Matrix
+  #
   # Args:
   #     NB: The contiguity constriant data frame
   #     conFactor: contiguity constraint factor
   # Returns:
   #     conMatrix: Contiguity Matrix
   # Error handeling
-  
-  ####################################################
+
+
   conMatrix <- sparseMatrix(NB[,1],NB[,2],x=rep(1,nrow(NB)))
   if(conFactor >=2){
     n <- nrow(conMatrix)
@@ -28,21 +28,21 @@ neighborMatrix <- function(NB,conFactor=1){
     diag(nb)<-0
     conMatrix <- nb
   }
-  return(conMatrix) 
+  return(conMatrix)
 }
 outlierDetector <- function(data, outlier.Threshold = 0.2 ){
   # Compute the outlier of the data using Principal component
-  # 
+  #
   # Args:
   #     data: a numeric data frame or matrix
-  #     outlier.Threshold: The Threshold which makes a data outlier. 
+  #     outlier.Threshold: The Threshold which makes a data outlier.
   #
   # Returns:
   #    outId: A logical vecotor which specifies all the outliers.
-  # 
+  #
   # Error handeling
-  
-  ####################################################
+
+
   #Principal Component
   pc <- prcomp(data,scale=TRUE, center=TRUE)
   var <-pc$sdev^2
@@ -54,13 +54,13 @@ outlierDetector <- function(data, outlier.Threshold = 0.2 ){
     s <- s +cvar[n]
   }
   dataNew <- pc$x[,1:n]
-  rm("pc","data") 
- 
+  rm("pc","data")
+
   #Similarity calculation
   dist <- as.matrix(dist(dataNew) )
   sigma <- median(dist)
   dist <- exp(-dist^2/(2*sigma^2))
-  
+
   #Outliers detection
   diag(dist)<-0
   i <- apply(dist,1,max)
@@ -69,21 +69,21 @@ outlierDetector <- function(data, outlier.Threshold = 0.2 ){
 }
 prinComp <- function(data, outId, showPC = F){
   # Run the pricnipal componenet algroithm on the data
-  # to reduce dimension 
+  # to reduce dimension
   #
   # Args:
   #     data: a numeric data frame or matrix
-  #     outId: A logical vecotor which specifies 
+  #     outId: A logical vecotor which specifies
   #           all the outliers.
-  #     showPC: A logical value indicating whether 
+  #     showPC: A logical value indicating whether
   #             principal compunent should be return
   #             or not.
   #
   # Returns:
   #     dataNew: After Principal component data
-  # 
+  #
   # Error handeling
-  ####################################################
+
   outSize <-sum(outId)
   if(outSize!=0){
     colmean <- apply(data,2,mean)
