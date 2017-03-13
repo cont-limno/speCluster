@@ -6,7 +6,20 @@
 \usage{
 produceU(similarity, ncol, type = 2, all.eig = F)
 }
+\arguments{
+\item{similarity}{an n by n matrix}
+
+\item{ncol}{number of columns of the output matrix U}
+
+\item{type}{The algrithm that should be choosen. options are 1, 2, and 3}
+
+\item{all.eig}{a logical value indicating whether all the eigenvector should be compute or not}
+}
+\value{
+n by ncol numeric matrix that contains the ncol tops
+       eigenvectors of Laplacian matrix as column
+}
 \description{
-ProduceU
+Given n by n similarity this function first calculate the Laplacian
 }
 

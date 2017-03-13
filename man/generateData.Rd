@@ -34,7 +34,9 @@ islands      <- read.csv("data/islandIdx.csv", header = T)
 latLong18876 <- read.csv("data/latLong18876.csv", header = T)
 NB18876      <- read.csv("data/NB_18876.csv", header = T)
 
-input <- generateData(type = dataTerrFW, islands = islands, latLong = latLong18876, NB18876, islandsIn = F, states = c("MO"), conFactor = 1)
+input <- generateData(type = dataTerrFW, islands = islands,
+latLong = latLong18876, NB18876, islandsIn = F, states = c("MO"),
+conFactor = 1)
 }
 }
 

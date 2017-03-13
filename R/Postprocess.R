@@ -40,15 +40,16 @@ sumSquares <- function(data, clusters){
 #' @param  long A numeric vector of  longitude location of the points.
 #' @param  lat A numeric vector of latitude location of the points.
 #' @param  clusters The  vector of integers indicating the cluster to which each point is allocated.
+#' @importFrom graphics points
 #' @export
 
 mapping <- function(long, lat, clusters){
   map("state", xlim = c(-98, -65), ylim = c(35, 50), col = 'gray90', fill = TRUE)
   cluster.number <- max(clusters)
-  map.axes()
+  maps::map.axes()
   for(i in 1:cluster.number){
     j <- clusters == i
-    points(long[j], lat[j], pch = 19, col = i, cex = 0.25)
+    graphics::points(long[j], lat[j], pch = 19, col = i, cex = 0.25)
   }
 }
 

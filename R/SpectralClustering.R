@@ -1,5 +1,6 @@
 
-# Similarity
+#' Similarity
+#' @importFrom stats median
 similarity <- function(data, neighbors){
   # Compute similarity matrix then multiply it to
   # contiguity matrix
@@ -16,7 +17,7 @@ similarity <- function(data, neighbors){
 
   #Similarity
   dist <- as.matrix(dist(data) )
-  sigma <- median(dist)
+  sigma <- stats::median(dist)
   dist <- exp(-dist^2/(2*sigma^2))
 
   similarity <- dist*neighbors
@@ -24,24 +25,19 @@ similarity <- function(data, neighbors){
 }
 
 #' ProduceU
+#' @description Given n by n similarity this function first calculate the Laplacian
+# matrix L then generate n by ncol matrix U of top ncol eigenvectors of L.
 #' @importFrom geigen geigen
+#' @importFrom rARPACK eigs
+#' @param similarity an n by n matrix
+#' @param type The algrithm that should be choosen. options are 1, 2, and 3
+#' @param ncol number of columns of the output matrix U
+#' @param all.eig a logical value indicating whether all the eigenvector should be compute or not
+#' @return n by ncol numeric matrix that contains the ncol tops
+#'        eigenvectors of Laplacian matrix as column
 
 produceU <- function(similarity, ncol, type = 2, all.eig = F){
-  # Given n by n similarity this function first calculate the Laplacian
-  # matrix L then generate n by ncol matrix U of top ncol eigenvectors of L.
-  #
-  # Args:
-  #     similarity: an n by n matrix
-  #     type: The algrithm that should be choosen. options are 1, 2, and 3
-  #     ncol: number of columns of the output matrix U
-  #     all.eig: a logical value indicating whether all the eigenvector
-  #              should be compute or not
-  #
-  # Returns:
-  #    U: n by ncol numeric matrix that contains the ncol tops
-  #       eigenvectors of Laplacian matrix as column
-  #
-  # Error handeling
+
   if (!is.element(type,1:3)){
     stop("argument type must be on of 1,2,or 3")
   }
@@ -83,7 +79,7 @@ if(all.eig){
   #Sys.time()-start
   U <- eigen$vectors[,1:ncol]
 }else{
-  eigen <-eigs(L,ncol,sigma = 0)
+  eigen <- rARPACK::eigs(L,ncol,sigma = 0)
   U <- eigen$vectors
 }
 
@@ -101,7 +97,9 @@ if(type==3){
 
 }
 
-# kmeansU
+#' kmeansU
+#' @importFrom stats kmeans
+
 kmeansU<- function(data , cluster.number ,
                    repetition = 400, iter.max = 400 ){
   # Perform k-means clustering on the U matrix.
@@ -120,7 +118,7 @@ kmeansU<- function(data , cluster.number ,
   # Error handeling
 
   data <- data[,1:cluster.number]
-  out <-kmeans(data, centers= cluster.number,
+  out <- kmeans(data, centers= cluster.number,
                nstart=repetition, iter.max = iter.max)
   return(out$cluster)
 }

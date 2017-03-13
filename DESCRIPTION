@@ -14,7 +14,6 @@ Imports:
     Matrix,
     geigen,
     rARPACK,
-    maps,
     WDI,
     RColorBrewer,
     maptools

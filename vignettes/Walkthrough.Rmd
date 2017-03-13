@@ -13,13 +13,13 @@ vignette: >
 
 ## Load package
 
-```{r }
+```{r eval=FALSE}
 library(spectraling)
 ```
 
 ## Read data
 
-```{r }
+```{r ,eval=FALSE}
 dataTerr     <- read.csv("../data/terrData.csv", header = T)
 dataFW       <- read.csv("../data/freshData.csv", header = T)
 i <- which(colnames(dataFW) == "hu12_states")
@@ -31,7 +31,7 @@ NB18876      <- read.csv("../data/NB_18876.csv", header = T)
 
 ## Prep Input
 
-```{r prep input}
+```{r prep input, eval=FALSE}
 # generate the input when we restrict the
 # data to dataTerrFW's of state Missouri, 
 # and no islands inculded.
@@ -40,7 +40,7 @@ input <- generateData(type = dataTerrFW, islands = islands,
                       states = c("MO"), conFactor = 1)
 ```
 
-```{r }
+```{r ,eval=FALSE}
 results <- speCluster(data = input$data, conMatrix = input$conMatrix, 
                       cluster.number = 10)
 summary(results)

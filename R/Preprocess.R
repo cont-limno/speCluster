@@ -45,8 +45,8 @@ outlierDetector <- function(data, outlier.Threshold = 0.2 ){
 
 
   #Principal Component
-  pc <- prcomp(data,scale=TRUE, center=TRUE)
-  var <-pc$sdev^2
+  pc <- stats::prcomp(data,scale=TRUE, center=TRUE)
+  var <- pc$sdev^2
   cvar <-var/sum(var)
   n <- 1
   s <- cvar[n]
@@ -59,7 +59,7 @@ outlierDetector <- function(data, outlier.Threshold = 0.2 ){
 
   #Similarity calculation
   dist <- as.matrix(dist(dataNew) )
-  sigma <- median(dist)
+  sigma <- stats::median(dist)
   dist <- exp(-dist^2/(2*sigma^2))
 
   #Outliers detection
@@ -68,6 +68,10 @@ outlierDetector <- function(data, outlier.Threshold = 0.2 ){
   outId <-i <= outlier.Threshold
   return(outId)
 }
+
+#' prinComp
+#' @importFrom stats prcomp
+#'
 prinComp <- function(data, outId, showPC = F){
   # Run the pricnipal componenet algroithm on the data
   # to reduce dimension
@@ -91,7 +95,7 @@ prinComp <- function(data, outId, showPC = F){
     data[outId,] <- matrix(colmean, nrow=outSize, ncol= length(colmean), byrow=T )
   }
   rm(colmean,outSize)
-  pc <- prcomp(data,scale=TRUE, center=TRUE)
+  pc <- stats::prcomp(data,scale=TRUE, center=TRUE)
   var <-pc$sdev^2
   cvar <-var/sum(var)
   n <- 1

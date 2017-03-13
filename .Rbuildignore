@@ -1,0 +1,5 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+Spec_Doc.Rnw
+Spec_Doc.pdf
+HU12SpectralClustering.RData

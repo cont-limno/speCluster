@@ -68,6 +68,7 @@ stepTwo <- function(data, U, cluster.number= cluster.number,
 #' @param islands vector of islands?
 #' @param states a vector of states names that have to be included
 #' @param conFactor    contiguity constraint factor
+#' @importFrom stats var
 #' @export
 #' @return a list with three elements: data, conMatrix, and latLong
 #' @examples \dontrun{
@@ -79,7 +80,9 @@ stepTwo <- function(data, U, cluster.number= cluster.number,
 #' latLong18876 <- read.csv("data/latLong18876.csv", header = T)
 #' NB18876      <- read.csv("data/NB_18876.csv", header = T)
 #'
-#' input <- generateData(type = dataTerrFW, islands = islands, latLong = latLong18876, NB18876, islandsIn = F, states = c("MO"), conFactor = 1)
+#' input <- generateData(type = dataTerrFW, islands = islands,
+#' latLong = latLong18876, NB18876, islandsIn = F, states = c("MO"),
+#' conFactor = 1)
 #' }
 
 generateData <- function(type, islands, latLong, NB18876, islandsIn = F, states = vector(), conFactor = 1){
@@ -133,7 +136,7 @@ generateData <- function(type, islands, latLong, NB18876, islandsIn = F, states 
   data <- as.numeric(data)
   data <- matrix(data,nrow=n,ncol=m)
   # Delete the constant columns
-  colSum <- apply(data,2,var)
+  colSum <- apply(data, 2, stats::var)
   constants <- which(colSum==0)
   if(length(constants)!=0){
     data <- data[,-constants]
