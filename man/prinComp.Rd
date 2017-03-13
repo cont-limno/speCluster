@@ -6,7 +6,18 @@
 \usage{
 prinComp(data, outId, showPC = F)
 }
+\arguments{
+\item{data}{a numeric data frame or matrix}
+
+\item{outId}{A logical vecotor which specifies all the outliers.}
+
+\item{showPC}{A logical value indicating whether principal compunent should be return or not.}
+}
+\value{
+dataNew: After Principal component data
+}
 \description{
-prinComp
+Run the pricnipal componenet algroithm on the data
+to reduce dimension
 }
 

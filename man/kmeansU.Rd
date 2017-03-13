@@ -6,7 +6,20 @@
 \usage{
 kmeansU(data, cluster.number, repetition = 400, iter.max = 400)
 }
+\arguments{
+\item{data}{numeric matrix U}
+
+\item{cluster.number}{The number of clusters.}
+
+\item{repetition}{How many random sets should be chosen for
+as the initial centers}
+
+\item{iter.max}{The maximum number of iterations allowed}
+}
+\value{
+cluster: A vector of integers(from 1:cluster.number) indicating the cluster to each point is allocated
+}
 \description{
-kmeansU
+Perform k-means clustering on the U matrix.
 }
 

@@ -20,13 +20,13 @@ library(spectraling)
 ## Read data
 
 ```{r ,eval=FALSE}
-dataTerr     <- read.csv("../data/terrData.csv", header = T)
-dataFW       <- read.csv("../data/freshData.csv", header = T)
+dataTerr     <- read.csv("../data-raw/terrData.csv", header = T)
+dataFW       <- read.csv("../data-raw/freshData.csv", header = T)
 i <- which(colnames(dataFW) == "hu12_states")
 dataTerrFW   <- merge(dataTerr, dataFW[-i], by.x = "zoneid", by.y = "zoneid")
-islands      <- read.csv("../data/islandIdx.csv", header = T)
-latLong18876 <- read.csv("../data/latLong18876.csv", header = T)
-NB18876      <- read.csv("../data/NB_18876.csv", header = T)
+islands      <- read.csv("../data-raw/islandIdx.csv", header = T)
+latLong18876 <- read.csv("../data-raw/latLong18876.csv", header = T)
+NB18876      <- read.csv("../data-raw/NB_18876.csv", header = T)
 ```
 
 ## Prep Input

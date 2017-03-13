@@ -41,6 +41,7 @@ sumSquares <- function(data, clusters){
 #' @param  lat A numeric vector of latitude location of the points.
 #' @param  clusters The  vector of integers indicating the cluster to which each point is allocated.
 #' @importFrom graphics points
+#' @importFrom maps map.axes
 #' @export
 
 mapping <- function(long, lat, clusters){

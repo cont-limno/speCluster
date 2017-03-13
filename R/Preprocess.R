@@ -70,24 +70,15 @@ outlierDetector <- function(data, outlier.Threshold = 0.2 ){
 }
 
 #' prinComp
+#' @description Run the pricnipal componenet algroithm on the data
+#' to reduce dimension
+#' @param data a numeric data frame or matrix
+#' @param outId A logical vecotor which specifies all the outliers.
+#' @param showPC A logical value indicating whether principal compunent should be return or not.
+#' @return dataNew: After Principal component data
 #' @importFrom stats prcomp
-#'
+
 prinComp <- function(data, outId, showPC = F){
-  # Run the pricnipal componenet algroithm on the data
-  # to reduce dimension
-  #
-  # Args:
-  #     data: a numeric data frame or matrix
-  #     outId: A logical vecotor which specifies
-  #           all the outliers.
-  #     showPC: A logical value indicating whether
-  #             principal compunent should be return
-  #             or not.
-  #
-  # Returns:
-  #     dataNew: After Principal component data
-  #
-  # Error handeling
 
   outSize <-sum(outId)
   if(outSize!=0){

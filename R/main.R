@@ -1,5 +1,3 @@
-
-
 # library("Matrix")
 # library("geigen")
 # library("rARPACK")
@@ -7,10 +5,6 @@
 # library(WDI)
 # library(RColorBrewer)
 # library("maptools")
-
-# source("Preprocess.R")
-# source("SpectralClustering.R")
-# source("Postprocess.R")
 
 #' speCluster
 #' @description Perform Spectral Clustering on a data matrix
@@ -50,7 +44,3 @@ speCluster <- function(data, conMatrix, cluster.number,
   out <- list(clusters= clusters,SS= SS)
   return(out)
 }
-
-
-
-

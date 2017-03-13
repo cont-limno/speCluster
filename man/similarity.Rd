@@ -6,7 +6,15 @@
 \usage{
 similarity(data, neighbors)
 }
+\arguments{
+\item{data}{n by p numeric matrix or data frame.}
+
+\item{neighbors}{n by n numeric matrix which specifies contiguity matrix.}
+}
+\value{
+similarity: The similarity matrix
+}
 \description{
-Similarity
+Compute similarity matrix then multiply it to contiguity matrix
 }
 

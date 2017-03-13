@@ -1,21 +1,12 @@
 
 #' Similarity
 #' @importFrom stats median
-similarity <- function(data, neighbors){
-  # Compute similarity matrix then multiply it to
-  # contiguity matrix
-  #
-  # Args:
-  #     data: n by p numeric matrix or data frame.
-  #     neighbors: n by n numeric matrix which specifies
-  #                contiguity matrix.
-  #
-  # Returns:
-  #    similarity: The similarity matrix
-  #
-  # Error handeling
+#' @description Compute similarity matrix then multiply it to contiguity matrix
+#' @param data n by p numeric matrix or data frame.
+#' @param neighbors n by n numeric matrix which specifies contiguity matrix.
+#' @return similarity: The similarity matrix
 
-  #Similarity
+similarity <- function(data, neighbors){
   dist <- as.matrix(dist(data) )
   sigma <- stats::median(dist)
   dist <- exp(-dist^2/(2*sigma^2))
@@ -42,7 +33,7 @@ produceU <- function(similarity, ncol, type = 2, all.eig = F){
     stop("argument type must be on of 1,2,or 3")
   }
   if(type==2){
-    warning("Tُype 2 algorithm might  need more than 4.0 G Ram")
+    warning("Type 2 algorithm might  need more than 4.0 G Ram")
   }
 
 #calculate degree matrix
@@ -98,24 +89,17 @@ if(type==3){
 }
 
 #' kmeansU
+#' @description Perform k-means clustering on the U matrix.
+#' @param data numeric matrix U
+#' @param cluster.number The number of clusters.
+#' @param iter.max The maximum number of iterations allowed
+#' @param repetition How many random sets should be chosen for
+#'                  as the initial centers
+#' @return cluster: A vector of integers(from 1:cluster.number) indicating the cluster to each point is allocated
 #' @importFrom stats kmeans
 
-kmeansU<- function(data , cluster.number ,
-                   repetition = 400, iter.max = 400 ){
-  # Perform k-means clustering on the U matrix.
-  #
-  # Args:
-  #     data: numeric matrix U
-  #     cluster.number: The number of clusters.
-  #     iter.max: The maximum number of iterations allowed
-  #     repetition: How many random sets should be chosen for
-  #                 as the initial centers
-  #
-  # Returns:
-  #         cluster: A vector of integers(from 1:cluster.number)
-  #                  indicating the cluster to each point is allocated
-  #
-  # Error handeling
+kmeansU <- function(data, cluster.number,
+                   repetition = 400, iter.max = 400){
 
   data <- data[,1:cluster.number]
   out <- kmeans(data, centers= cluster.number,

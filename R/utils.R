@@ -64,21 +64,23 @@ stepTwo <- function(data, U, cluster.number= cluster.number,
 #' generateData
 #' @description Generate the data for clustering
 #' @param type three options "dataTerr", "dataFW", and "dataTerrFW"
-#' @param islandIn if T the islands will be included
+#' @param islandsIn if T the islands will be included
 #' @param islands vector of islands?
+#' @param latLong coordinates
+#' @param NB18876 neighbor data.frame?
 #' @param states a vector of states names that have to be included
 #' @param conFactor    contiguity constraint factor
 #' @importFrom stats var
 #' @export
 #' @return a list with three elements: data, conMatrix, and latLong
 #' @examples \dontrun{
-#' dataTerr     <- read.csv("data/terrData.csv", header = T)
-#' dataFW       <- read.csv("data/freshData.csv", header = T)
+#' dataTerr     <- read.csv("data-raw/terrData.csv", header = T)
+#' dataFW       <- read.csv("data-raw/freshData.csv", header = T)
 #' i <- which(colnames(dataFW) == "hu12_states")
 #' dataTerrFW   <- merge(dataTerr, dataFW[-i], by.x = "zoneid", by.y = "zoneid")
-#' islands      <- read.csv("data/islandIdx.csv", header = T)
-#' latLong18876 <- read.csv("data/latLong18876.csv", header = T)
-#' NB18876      <- read.csv("data/NB_18876.csv", header = T)
+#' islands      <- read.csv("data-raw/islandIdx.csv", header = T)
+#' latLong18876 <- read.csv("data-raw/latLong18876.csv", header = T)
+#' NB18876      <- read.csv("data-raw/NB_18876.csv", header = T)
 #'
 #' input <- generateData(type = dataTerrFW, islands = islands,
 #' latLong = latLong18876, NB18876, islandsIn = F, states = c("MO"),
@@ -86,14 +88,6 @@ stepTwo <- function(data, U, cluster.number= cluster.number,
 #' }
 
 generateData <- function(type, islands, latLong, NB18876, islandsIn = F, states = vector(), conFactor = 1){
-  #type
-  if(!identical(type, dataFW)&
-     !identical(type, dataTerrFW) &
-     !identical(type, dataTerr) ){
-    stop("Wrong input for type variable: Make sure to choose one of
-         dataFW, dataTerr, or dataTerrFW
-         ")
-  }
   #islandsIn
   if(!is.logical(islandsIn)){
     stop("islandsIn must be logical variable.")
