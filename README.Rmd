@@ -1,37 +1,45 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-speCluster
-==========
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "images/"
+)
+```
+
+# speCluster
 
 [![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 
-This package wraps the code at:
+This package wraps the code at: 
 
-<https://github.com/cont-limno/SpectralClustering4Regions>
+https://github.com/cont-limno/SpectralClustering4Regions
 
-Installation
-------------
+## Installation
 
 You can install speCluster from github with:
 
-``` r
+```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("jsta/speCluster")
 ```
 
-Usage
------
+## Usage
 
 ### Load package
 
-``` r
+```{r eval=TRUE}
 library(speCluster)
-#> Loading required package: maps
 ```
 
 ### Read data
 
-``` r
+```{r ,eval=TRUE}
 dataTerr     <- read.csv("data-raw/terrData.csv", header = T)
 dataFW       <- read.csv("data-raw/freshData.csv", header = T)
 i <- which(colnames(dataFW) == "hu12_states")
@@ -43,7 +51,7 @@ NB18876      <- read.csv("data-raw/NB_18876.csv", header = T)
 
 ### Prep Input
 
-``` r
+```{r prep input, eval=TRUE}
 # generate the input when we restrict the
 # data to dataTerrFW's of state Missouri, 
 # and no islands inculded.
@@ -54,31 +62,17 @@ input <- generateData(type = dataTerrFW, islands = islands,
 
 ### Generate Clusters
 
-``` r
+```{r ,eval=TRUE}
 results <- speCluster(data = input$data, conMatrix = input$conMatrix, 
                       cluster.number = 10)
-#> Warning in produceU(similarity = S, ncol = cluster.number): Type 2
-#> algorithm might need more than 4.0 G Ram
 summary(results)
-#>          Length Class  Mode   
-#> clusters 1748   -none- numeric
-#> SS          2   -none- list
 results$SS
-#> $SSW
-#> [1] 47925.58
-#> 
-#> $SSB
-#> [1] 17244.8
 head(results$clusters)
-#> 1 2 3 4 5 6 
-#> 1 1 1 1 1 1
 mapping(lat = input$latLong[,1], long = input$latLong[,2],
          clusters = results$clusters)
+
 ```
 
-![](images/unnamed-chunk-4-1.png)
+## Citation
 
-Citation
---------
-
-*Creating Multithemed Ecological Regions for Macroscale Ecology* ([Cheruvelil et al. 2017](https://dx.doi.org/10.1002/ece3.2884))
+_Creating Multithemed Ecological Regions for Macroscale Ecology_ ([Cheruvelil et al. 2017](https://dx.doi.org/10.1002/ece3.2884))

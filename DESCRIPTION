@@ -6,8 +6,8 @@ Authors@R: c(
     person("Farzan", "Masrour", role = c("ctb"))
   )
 Description: Spectral clustering in R.
-URL: https://github.com/jsta/spectraling
-BugReports: https://github.com/jsta/spectraling/issues
+URL: https://github.com/jsta/speCluster
+BugReports: https://github.com/jsta/speCluster/issues
 Depends:
     R (>= 3.3.2)
 License: GPL (>= 2)
