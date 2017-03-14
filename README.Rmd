@@ -51,19 +51,42 @@ NB18876      <- read.csv("data-raw/NB_18876.csv", header = T)
 
 ### Prep Input
 
-```{r prep input, eval=TRUE}
-# generate the input when we restrict the
-# data to dataTerrFW's of state Missouri, 
-# and no islands inculded.
-input <- generateData(type = dataTerrFW, islands = islands, 
-                      latLong = latLong18876, NB18876, islandsIn = FALSE, 
-                      states = c("MO"), conFactor = 1)
-```
 
 ### Generate Clusters
 
 ```{r ,eval=TRUE}
-results <- speCluster(data = input$data, conMatrix = input$conMatrix, 
+# data is just a `matrix` of the data where columns are variables and rows 
+# are locations
+in_state <- as.character(dataTerrFW$hu12_states) == "MO"
+dt <- dataTerrFW[in_state, -c(1, 2)]
+dt <- as.matrix(rm_constant_columns(dt))
+coords <- as.matrix(latLong18876[in_state,])
+
+colnames(coords) <- NULL
+colnames(dt) <- NULL
+
+index <- 2
+NB18876[NB18876$row == index,]
+plot_nb(coords, 2, xbuff = .15, ybuff = .15)
+
+# `NBindex` subsets NB18876 to cut rows to match state and columns to 
+# `c("row", "neighbor")` to create NB
+
+nb <- spdep::dnearneigh(coords, 0, 0.12)
+
+# nb.knn <- spdep::knearneigh(coords, k = 4)
+# nb <- spdep::knn2nb(nb.knn)
+
+# nb <- spdep::tri2nb(coords)
+
+nb <- nb_collapse(nb)
+nb[nb$row == index,]
+NB <- nb[nb$row %in% which(in_state),]
+
+# generate conMatrix using `neighborMatrix`
+cmat <- neighborMatrix(NB, conFactor = 1)
+
+results <- speCluster(data = dt, conMatrix = cmat, 
                       cluster.number = 10)
 summary(results)
 results$SS
@@ -72,6 +95,16 @@ mapping(lat = input$latLong[,1], long = input$latLong[,2],
          clusters = results$clusters)
 
 ```
+
+```{r prep input, eval=TRUE}
+# generate the input when we restrict the data to dataTerrFW's of state Missouri, 
+# and no islands inculded.
+
+input <- generateData(type = dataTerrFW, islands = islands, 
+                      latLong = latLong18876, NB18876, islandsIn = FALSE, 
+                      states = c("MO"), conFactor = 1)
+```
+
 
 ## Citation
 

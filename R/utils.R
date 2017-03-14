@@ -131,18 +131,12 @@ generateData <- function(type, islands, latLong, NB18876, islandsIn = FALSE,
   data <- as.matrix(data)
   data <- as.numeric(data)
   data <- matrix(data, nrow = n, ncol = m)
+  data <- rm_constant_columns(data)
 
-  # Delete the constant columns
-  colSum    <- apply(data, 2, stats::var)
-  constants <- which(colSum == 0)
-  if(length(constants) != 0){
-    data <- data[,-constants]
-  }
-
-  browser()
   latLong   <- latLong[index,]
 
   NB        <- NBindex(index, NB18876)
+  browser()
   conMatrix <- neighborMatrix(NB, conFactor = conFactor)
 
   list(data = data, conMatrix = conMatrix, latLong = latLong)
@@ -153,7 +147,7 @@ NBindex <- function(index, NB18876){
   NB <- data.frame()
 
   for(i in seq_len(nrow(NB18876))){
-    if( (NB18876[i,"row"] %in% id) &
+    if((NB18876[i,"row"] %in% id) &
         (NB18876[i,"neighbor"] %in% id)){
       NB <- rbind(NB, NB18876[i,c("row", "neighbor")])
     }
@@ -167,4 +161,37 @@ NBindex <- function(index, NB18876){
   }
 
   return(NB)
+}
+
+rm_constant_columns <- function(data){
+  colSum    <- apply(data, 2, stats::var)
+  constants <- which(colSum == 0)
+  if(length(constants) != 0){
+    data <- data[,-constants]
+  }
+  data
+}
+
+# nb_c <- nb_collapse(nb)
+nb_collapse <- function(nb){
+  nb <- data.frame(do.call("rbind", lapply(1:length(nb),
+                                function(x) cbind(x, nb[[x]]))))
+  names(nb) <- c("row", "neighbor")
+  nb
+}
+
+# nb_e <- nb_expand(nb_c)
+nb_expand <- function(nb){
+  nb <- split(nb, f = nb$row)
+  lapply(nb, function(x) x[,2])
+}
+
+
+plot_nb <- function(coords, index, xbuff = 0.1, ybuff = 0.1){
+  pnts <- sf::st_multipoint(coords[,c(2,1)])
+  plot(pnts,
+       xlim = coords[index,][2] + c(-1 * xbuff, xbuff),
+       ylim = coords[index,][1] + c(-1 * ybuff, ybuff),
+       type = "n")
+  text(coords[,c(2,1)])
 }
