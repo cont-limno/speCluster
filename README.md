@@ -32,20 +32,17 @@ library(speCluster)
 ### Read data
 
 ``` r
-dataTerr     <- read.csv("data-raw/terrData.csv", header = T)
-dataFW       <- read.csv("data-raw/freshData.csv", header = T)
-i <- which(colnames(dataFW) == "hu12_states")
-dataTerrFW   <- merge(dataTerr, dataFW[-i], by.x = "zoneid", by.y = "zoneid")
-latLong18876 <- read.csv("data-raw/latLong18876.csv", header = T)
+dt     <- read.csv("data-raw/dataTerrFW.csv", header = T)
+coords <- read.csv("data-raw/latLong18876.csv", header = T)
 ```
 
 ### Prep Input
 
 ``` r
-in_state <- as.character(dataTerrFW$hu12_states) == "MO"
-dt <- dataTerrFW[in_state, -c(1, 2)]
+in_state <- as.character(dt$hu12_states) == "MO"
+dt <- dt[in_state, -c(1,2)]
 dt <- as.matrix(rm_constant_columns(dt))
-coords <- as.matrix(latLong18876[in_state,])
+coords <- as.matrix(coords[in_state,])
 
 colnames(coords) <- NULL
 colnames(dt) <- NULL
@@ -53,7 +50,6 @@ colnames(dt) <- NULL
 nb <- spdep::dnearneigh(coords, 0, 0.192)
 nb <- nb_collapse(nb)
 
-# generate conMatrix using `neighborMatrix`
 cmat <- neighborMatrix(nb, conFactor = 1)
 ```
 
@@ -75,8 +71,8 @@ results$SS
 #> $SSB
 #> [1] 16479.08
 head(results$clusters)
-#> 1 2 3 4 5 6 
-#> 3 3 3 3 3 3
+#>  1  2  3  4  5  6 
+#> 10 10 10 10 10 10
 mapping(lat = coords[,1], long = coords[,2],
          clusters = results$clusters)
 ```

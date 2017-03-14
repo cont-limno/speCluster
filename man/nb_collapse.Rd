@@ -6,8 +6,14 @@
 \usage{
 nb_collapse(nb)
 }
+\arguments{
+\item{nb}{neighbor list}
+}
+\value{
+neighbor data.frame
+}
 \description{
-nb_collapse
+convert a neighbor list to a data.frame
 }
 \examples{
 \dontrun{

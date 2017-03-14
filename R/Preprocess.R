@@ -3,16 +3,11 @@
 # and outputs
 
 #' neighborMatrix
+#' @description Compute constraint Matrix
+#' @param NB data.frame neighbor list
+#' @param conFactor integer contiguity constraint factor
 #' @export
 neighborMatrix <- function(NB, conFactor = 1){
-  # Compute constraint Matrix
-  #
-  # Args:
-  #     NB: The contiguity constriant data frame
-  #     conFactor: contiguity constraint factor
-  # Returns:
-  #     conMatrix: Contiguity Matrix
-  # Error handeling
 
   conMatrix <- Matrix::sparseMatrix(NB[,1], NB[,2], x = rep(1, nrow(NB)))
 

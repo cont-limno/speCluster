@@ -164,6 +164,8 @@ NBindex <- function(index, NB18876){
 }
 
 #' rm_constant_columns
+#' @description Remove columns with zero variance
+#' @param data data.frame
 #' @export
 rm_constant_columns <- function(data){
   colSum    <- apply(data, 2, stats::var)
@@ -175,6 +177,9 @@ rm_constant_columns <- function(data){
 }
 
 #' nb_collapse
+#' @description convert a neighbor list to a data.frame
+#' @param nb neighbor list
+#' @return neighbor data.frame
 #' @export
 #' @examples \dontrun{
 #' nb_c <- nb_collapse(nb)
@@ -193,11 +198,11 @@ nb_expand <- function(nb){
 }
 
 
-plot_nb <- function(coords, index, xbuff = 0.1, ybuff = 0.1){
-  pnts <- sf::st_multipoint(coords[,c(2,1)])
-  plot(pnts,
-       xlim = coords[index,][2] + c(-1 * xbuff, xbuff),
-       ylim = coords[index,][1] + c(-1 * ybuff, ybuff),
-       type = "n")
-  text(coords[,c(2,1)])
-}
+# plot_nb <- function(coords, index, xbuff = 0.1, ybuff = 0.1){
+#   pnts <- sf::st_multipoint(coords[,c(2,1)])
+#   graphics::plot(pnts,
+#        xlim = coords[index,][2] + c(-1 * xbuff, xbuff),
+#        ylim = coords[index,][1] + c(-1 * ybuff, ybuff),
+#        type = "n")
+#   graphics::text(coords[,c(2,1)])
+# }

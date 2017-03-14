@@ -6,7 +6,12 @@
 \usage{
 neighborMatrix(NB, conFactor = 1)
 }
+\arguments{
+\item{NB}{data.frame neighbor list}
+
+\item{conFactor}{integer contiguity constraint factor}
+}
 \description{
-neighborMatrix
+Compute constraint Matrix
 }
 

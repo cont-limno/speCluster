@@ -6,7 +6,10 @@
 \usage{
 rm_constant_columns(data)
 }
+\arguments{
+\item{data}{data.frame}
+}
 \description{
-rm_constant_columns
+Remove columns with zero variance
 }
 
