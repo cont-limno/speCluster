@@ -38,18 +38,20 @@ coords <- read.csv("data-raw/latLong18876.csv", header = T)
 
 ### Prep Input
 
+Here we create a data matrix `dt` where each row is an observation and each column is a variable. In this example, we subset a larger matrix to focus on the US State of Missouri. Uninformative (constant) variables are removed with `rm_constant_columns`. Next, we create a constraint matrix that incorporates information on the spatial dependence among observations.
+
 ``` r
+# Create data matrix
 in_state <- as.character(dt$hu12_states) == "MO"
 dt <- dt[in_state, -c(1,2)]
 dt <- as.matrix(rm_constant_columns(dt))
-coords <- as.matrix(coords[in_state,])
-
-colnames(coords) <- NULL
 colnames(dt) <- NULL
 
+# Create constraint matrix
+coords <- as.matrix(coords[in_state,])
+colnames(coords) <- NULL
 nb <- spdep::dnearneigh(coords, 0, 0.192)
 nb <- nb_collapse(nb)
-
 cmat <- neighborMatrix(nb, conFactor = 1)
 ```
 
@@ -71,8 +73,8 @@ results$SS
 #> $SSB
 #> [1] 16479.08
 head(results$clusters)
-#>  1  2  3  4  5  6 
-#> 10 10 10 10 10 10
+#> 1 2 3 4 5 6 
+#> 8 8 8 8 8 8
 mapping(lat = coords[,1], long = coords[,2],
          clusters = results$clusters)
 ```
