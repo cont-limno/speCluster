@@ -2,6 +2,9 @@
 
 export(generateData)
 export(mapping)
+export(nb_collapse)
+export(neighborMatrix)
+export(rm_constant_columns)
 export(speCluster)
 importFrom(geigen,geigen)
 importFrom(graphics,points)

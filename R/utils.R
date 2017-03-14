@@ -163,6 +163,8 @@ NBindex <- function(index, NB18876){
   return(NB)
 }
 
+#' rm_constant_columns
+#' @export
 rm_constant_columns <- function(data){
   colSum    <- apply(data, 2, stats::var)
   constants <- which(colSum == 0)
@@ -172,7 +174,11 @@ rm_constant_columns <- function(data){
   data
 }
 
-# nb_c <- nb_collapse(nb)
+#' nb_collapse
+#' @export
+#' @examples \dontrun{
+#' nb_c <- nb_collapse(nb)
+#' }
 nb_collapse <- function(nb){
   nb <- data.frame(do.call("rbind", lapply(1:length(nb),
                                 function(x) cbind(x, nb[[x]]))))

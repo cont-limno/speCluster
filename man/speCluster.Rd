@@ -8,7 +8,7 @@ speCluster(data, conMatrix, cluster.number, iter.max = 400,
   repetition = 400)
 }
 \arguments{
-\item{data}{A numeric data frame or matrix.}
+\item{data}{A numeric data frame or matrix where columns represent variables and rows represent locations}
 
 \item{conMatrix}{Contiguity matrix.}
 
@@ -27,10 +27,5 @@ A list contains two parts:
 }
 \description{
 Perform Spectral Clustering on a data matrix
-}
-\examples{
-\dontrun{
-speCluster()
-}
 }
 

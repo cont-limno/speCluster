@@ -2,7 +2,8 @@
 #File description comment, including purpose of program, inputs
 # and outputs
 
-
+#' neighborMatrix
+#' @export
 neighborMatrix <- function(NB, conFactor = 1){
   # Compute constraint Matrix
   #
