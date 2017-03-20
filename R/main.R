@@ -13,7 +13,7 @@
 #'                  SSB for SumSquered Between
 
 speCluster <- function(data, conMatrix, cluster.number,
-                       iter.max=400, repetition= 400 ){
+                       iter.max = 400, repetition = 400 ){
 
   # Preprocess
   outId <- outlierDetector(data)

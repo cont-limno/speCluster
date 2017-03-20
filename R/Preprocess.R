@@ -78,18 +78,18 @@ outlierDetector <- function(data, outlier.Threshold = 0.2 ){
 prinComp <- function(data, outId, showPC = FALSE){
 
   outSize <-sum(outId)
-  if(outSize!=0){
+  if(outSize != 0){
     colmean <- apply(data,2,mean)
     data[outId,] <- matrix(colmean, nrow = outSize, ncol= length(colmean),
                            byrow = TRUE)
   }
-  rm(colmean,outSize)
-  pc <- stats::prcomp(data,scale=TRUE, center=TRUE)
-  var <-pc$sdev^2
-  cvar <-var/sum(var)
+  # rm(colmean,outSize)
+  pc <- stats::prcomp(data, scale = TRUE, center = TRUE)
+  var <- pc$sdev^2
+  cvar <- var / sum(var)
   n <- 1
   s <- cvar[n]
-  while( s < 0.85){
+  while(s < 0.85){
     n <- n+1
     s <- s +cvar[n]
   }
