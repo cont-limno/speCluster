@@ -42,27 +42,27 @@ outlierDetector <- function(data, outlier.Threshold = 0.2 ){
   # Error handeling
 
   #Principal Component
-  pc <- stats::prcomp(data,scale=TRUE, center=TRUE)
+  pc <- stats::prcomp(data, scale = TRUE, center = TRUE)
   var <- pc$sdev^2
-  cvar <-var/sum(var)
+  cvar <- var / sum(var)
   n <- 1
   s <- cvar[n]
-  while( s < 0.85){
-    n <- n+1
-    s <- s +cvar[n]
+  while(s < 0.85){
+    n <- n + 1
+    s <- s + cvar[n]
   }
   dataNew <- pc$x[,1:n]
-  rm("pc","data")
+  # rm("pc","data")
 
   #Similarity calculation
-  dist <- as.matrix(dist(dataNew) )
+  dist <- as.matrix(dist(dataNew))
   sigma <- stats::median(dist)
-  dist <- exp(-dist^2/(2*sigma^2))
+  dist <- exp(-dist^2 / (2*sigma^2))
 
   #Outliers detection
-  diag(dist)<-0
-  i <- apply(dist,1,max)
-  outId <-i <= outlier.Threshold
+  diag(dist) <- 0
+  i <- apply(dist, 1, max)
+  outId <- i <= outlier.Threshold
   return(outId)
 }
 
@@ -90,8 +90,8 @@ prinComp <- function(data, outId, showPC = FALSE){
   n <- 1
   s <- cvar[n]
   while(s < 0.85){
-    n <- n+1
-    s <- s +cvar[n]
+    n <- n + 1
+    s <- s + cvar[n]
   }
   dataNew <- pc$x[,1:n]
   if(showPC){
