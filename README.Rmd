@@ -26,7 +26,7 @@ You can install speCluster from github with:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
-devtools::install_github("jsta/speCluster")
+devtools::install_github("cont-limno/speCluster")
 ```
 
 ## Usage

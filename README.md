@@ -16,7 +16,7 @@ You can install speCluster from github with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("jsta/speCluster")
+devtools::install_github("cont-limno/speCluster")
 ```
 
 Usage
@@ -74,7 +74,7 @@ results$SS
 #> [1] 16479.08
 head(results$clusters)
 #> 1 2 3 4 5 6 
-#> 8 8 8 8 8 8
+#> 1 1 1 1 1 1
 mapping(lat = coords[,1], long = coords[,2],
          clusters = results$clusters)
 ```
