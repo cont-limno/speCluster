@@ -6,6 +6,11 @@
 \usage{
 outlierDetector(data, outlier.Threshold = 0.2)
 }
+\arguments{
+\item{data}{data.frame}
+
+\item{outlier.Threshold}{numeric}
+}
 \description{
 outlierDetector
 }

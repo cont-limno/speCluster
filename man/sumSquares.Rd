@@ -6,6 +6,11 @@
 \usage{
 sumSquares(data, clusters)
 }
+\arguments{
+\item{data}{after principal component data}
+
+\item{clusters}{the vector of integers indicating cluster membership}
+}
 \description{
 sumSquares
 }

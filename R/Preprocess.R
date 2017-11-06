@@ -30,6 +30,8 @@ neighborMatrix <- function(NB, conFactor = 1){
 }
 
 #' outlierDetector
+#' @param data data.frame
+#' @param outlier.Threshold numeric
 #' @export
 outlierDetector <- function(data, outlier.Threshold = 0.2 ){
   # Compute the outlier of the data using Principal component

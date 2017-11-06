@@ -7,6 +7,17 @@
 stepTwo(data, U, cluster.number = cluster.number, iter.max = 400,
   repetition = 400)
 }
+\arguments{
+\item{data}{data.frame}
+
+\item{U}{numeric matrix}
+
+\item{cluster.number}{number of clusters}
+
+\item{iter.max}{max iterations allowed for kmean step}
+
+\item{repetition}{number of random sets to be chosen for the initial cetners in the kmeans step}
+}
 \description{
 stepTwo
 }

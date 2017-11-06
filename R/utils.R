@@ -1,4 +1,7 @@
 #' stepOne
+#' @param data data.frame
+#' @param conMatrix contiguity matrix
+#' @param ncol number of output columns
 #' @export
 stepOne <- function(data, conMatrix, ncol){
   # This function Computes the data after Principal component
@@ -32,6 +35,11 @@ stepOne <- function(data, conMatrix, ncol){
 }
 
 #' stepTwo
+#' @param data data.frame
+#' @param U numeric matrix
+#' @param cluster.number number of clusters
+#' @param iter.max max iterations allowed for kmean step
+#' @param repetition number of random sets to be chosen for the initial cetners in the kmeans step
 #' @export
 stepTwo <- function(data, U, cluster.number= cluster.number,
                     iter.max=400, repetition=400){

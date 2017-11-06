@@ -6,6 +6,13 @@
 \usage{
 stepOne(data, conMatrix, ncol)
 }
+\arguments{
+\item{data}{data.frame}
+
+\item{conMatrix}{contiguity matrix}
+
+\item{ncol}{number of output columns}
+}
 \description{
 stepOne
 }

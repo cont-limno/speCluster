@@ -1,6 +1,6 @@
 Package: speCluster
 Title: Spectral Clustering in R
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: c(
     person("Joseph", "Stachelek", email = "stachel2@msu.edu", role = c("aut", "cre")), 
     person("Farzan", "Masrour", role = c("ctb"))
@@ -19,6 +19,5 @@ Imports:
     geigen,
     rARPACK
 RoxygenNote: 6.0.1
-Suggests: knitr,
-    rmarkdown
+Suggests: knitr
 VignetteBuilder: knitr

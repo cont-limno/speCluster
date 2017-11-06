@@ -3,6 +3,8 @@
 # and outputs
 
 #' sumSquares
+#' @param data after principal component data
+#' @param clusters the vector of integers indicating cluster membership
 #' @export
 sumSquares <- function(data, clusters){
   # Given the data and clusters vector this function computes
