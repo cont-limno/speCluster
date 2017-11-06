@@ -1,14 +1,15 @@
-\documentclass{article}
+\documentclass[12pt, notitlepage]{article}
 \usepackage{color}
+\usepackage[utf8]{inputenc}%jsta
+
 \author{Farzan Masrour\
         \and Joseph Stachelek}
 \title{Tutorial on How to use Spectral Clustering Algorithm for Creating Regions from Geospatial Data}
 
-%\VignetteIndexEntry{Tutorial on How to use Spectral Clustering Algorithm for Creating Regions from Geospatial Data}
-%\VignetteEngine{knitr::knitr
+%\VignetteIndexEntry{Tutorial on How to use Spectral Clustering Algorithm for Creating Regions from Geospatial Data} \\
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+
 \date{2015-09-16 edited 2017-01-20}
 
 \newcommand{\todo}[1] {{\textcolor{red}{\noindent ToDo: #1}\newline}}
