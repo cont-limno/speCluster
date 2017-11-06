@@ -76,6 +76,19 @@ mapping(lat = coords[,1], long = coords[,2],
 
 ```
 
+### Generate Hierarchical Clusters
+
+```{r }
+results <- hspeCluster(data = dt, conMatrix = cmat, 
+                      cluster.number = 10)
+summary(results)
+results$SS
+head(results$clusters)
+mapping(lat = coords[,1], long = coords[,2],
+         clusters = results$clusters[,ncol(results$clusters)])
+
+```
+
 ## Citation
 
 _Creating Multithemed Ecological Regions for Macroscale Ecology_ ([Cheruvelil et al. 2017](https://dx.doi.org/10.1002/ece3.2884))

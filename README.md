@@ -65,21 +65,92 @@ results <- speCluster(data = dt, conMatrix = cmat,
 summary(results)
 #>          Length Class  Mode   
 #> clusters 1748   -none- numeric
-#> SS          2   -none- list
+#> SS          3   -none- list
 results$SS
 #> $SSW
 #> [1] 48691.31
 #> 
 #> $SSB
 #> [1] 16479.08
+#> 
+#> $SSWlist
+#>  [1]    46.00505  5630.85173 10818.91933  5239.74218  3035.68172
+#>  [6]  5047.52514   520.56304  2902.38989 11955.39352  3494.24110
 head(results$clusters)
 #> 1 2 3 4 5 6 
-#> 1 1 1 1 1 1
+#> 6 6 6 6 6 6
 mapping(lat = coords[,1], long = coords[,2],
          clusters = results$clusters)
 ```
 
 ![](images/unnamed-chunk-5-1.png)
+
+### Generate Hierarchical Clusters
+
+``` r
+results <- hspeCluster(data = dt, conMatrix = cmat, 
+                      cluster.number = 10)
+#> Warning in produceU(similarity = S, ncol = 2): Type 2 algorithm might need
+#> more than 4.0 G Ram
+#> SSW:  46.00505 63363.06NULL
+#> iter=3, split cluster 2
+#> Warning in produceU(similarity = S, ncol = 2): Type 2 algorithm might need
+#> more than 4.0 G Ram
+#> SSW:  46.00505 24704.26 33628.23NULL
+#> iter=4, split cluster 3
+#> Warning in produceU(similarity = S, ncol = 2): Type 2 algorithm might need
+#> more than 4.0 G Ram
+#> SSW:  46.00505 24704.26 13155.48 16824.34NULL
+#> iter=5, split cluster 2
+#> Warning in produceU(similarity = S, ncol = 2): Type 2 algorithm might need
+#> more than 4.0 G Ram
+#> SSW:  46.00505 10456.92 13155.48 16824.34 11337.36NULL
+#> iter=6, split cluster 4
+#> Warning in produceU(similarity = S, ncol = 2): Type 2 algorithm might need
+#> more than 4.0 G Ram
+#> SSW:  46.00505 10456.92 13155.48 7124.04 11337.36 9108.891NULL
+#> iter=7, split cluster 3
+#> Warning in produceU(similarity = S, ncol = 2): Type 2 algorithm might need
+#> more than 4.0 G Ram
+#> SSW:  46.00505 10456.92 5476.909 7124.04 11337.36 9108.891 7032.887NULL
+#> iter=8, split cluster 5
+#> Warning in produceU(similarity = S, ncol = 2): Type 2 algorithm might need
+#> more than 4.0 G Ram
+#> SSW:  46.00505 10456.92 5476.909 7124.04 2943.372 9108.891 7032.887 7217.037NULL
+#> iter=9, split cluster 2
+#> Warning in produceU(similarity = S, ncol = 2): Type 2 algorithm might need
+#> more than 4.0 G Ram
+#> SSW:  46.00505 9633.592 5476.909 7124.04 2943.372 9108.891 7032.887 7217.037 512.3814NULL
+#> iter=10, split cluster 2
+#> Warning in produceU(similarity = S, ncol = 2): Type 2 algorithm might need
+#> more than 4.0 G Ram
+summary(results)
+#>          Length Class  Mode   
+#> clusters 15732  -none- numeric
+#> SS           3  -none- list
+results$SS
+#> $SSW
+#> [1] 48095.76
+#> 
+#> $SSB
+#> [1] 17074.63
+#> 
+#> $SSWlist
+#>  [1]   46.00505 7052.94983 5476.90859 7124.04009 2943.37179 9108.89082
+#>  [7] 7032.88699 7217.03682  512.38137 1581.28940
+head(results$clusters)
+#>      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
+#> [1,]    2    3    3    3    3    7    7    7    7
+#> [2,]    2    3    3    3    3    7    7    7    7
+#> [3,]    2    3    3    3    3    7    7    7    7
+#> [4,]    2    3    3    3    3    7    7    7    7
+#> [5,]    2    3    3    3    3    7    7    7    7
+#> [6,]    2    3    3    3    3    7    7    7    7
+mapping(lat = coords[,1], long = coords[,2],
+         clusters = results$clusters[,ncol(results$clusters)])
+```
+
+![](images/unnamed-chunk-6-1.png)
 
 Citation
 --------
