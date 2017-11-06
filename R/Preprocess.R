@@ -29,6 +29,8 @@ neighborMatrix <- function(NB, conFactor = 1){
   conMatrix
 }
 
+#' outlierDetector
+#' @export
 outlierDetector <- function(data, outlier.Threshold = 0.2 ){
   # Compute the outlier of the data using Principal component
   #
@@ -73,6 +75,7 @@ outlierDetector <- function(data, outlier.Threshold = 0.2 ){
 #' @param outId A logical vecotor which specifies all the outliers.
 #' @param showPC A logical value indicating whether principal compunent should be return or not.
 #' @return dataNew: After Principal component data
+#' @export
 #' @importFrom stats prcomp
 
 prinComp <- function(data, outId, showPC = FALSE){

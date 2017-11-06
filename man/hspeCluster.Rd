@@ -19,13 +19,14 @@ hspeCluster(data, conMatrix, cluster.number, iter.max = 400,
 \item{repetition}{How  many  random  sets  should  be  chosen for  as  the  initial centers in kmeans step.}
 }
 \description{
-hspecCluster
+Perform hierarchical Spectral Clustering on a data matrix
 }
 \examples{
 \dontrun{
-load("HU12SpectralClustering.RData")
-input <- generateData(type = dataTerrFW, islandsIn = F, states = c("MI"), conFactor=1)
-results <- hspeCluster(data= input$data, conMatrix=input$conMatrix, cluster.number=8)
-mapping(lat = input$latLong[,1],long=input$latLong[,2],clusters= results[,1]$clusters)
+example("generateData", run.dontrun = TRUE)
+results <- hspeCluster(data = input$data, conMatrix = input$conMatrix,
+               cluster.number = 8)
+mapping(lat = input$latLong[,1], long = input$latLong[,2],
+    clusters = results$clusters[,7])
 }
 }
