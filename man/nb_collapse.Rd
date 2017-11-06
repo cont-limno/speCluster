@@ -20,4 +20,3 @@ convert a neighbor list to a data.frame
 nb_c <- nb_collapse(nb)
 }
 }
-

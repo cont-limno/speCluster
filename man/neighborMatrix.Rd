@@ -14,4 +14,3 @@ neighborMatrix(NB, conFactor = 1)
 \description{
 Compute constraint Matrix
 }
-

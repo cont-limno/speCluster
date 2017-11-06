@@ -22,4 +22,3 @@ cluster: A vector of integers(from 1:cluster.number) indicating the cluster to e
 \description{
 Perform k-means clustering on the U matrix.
 }
-

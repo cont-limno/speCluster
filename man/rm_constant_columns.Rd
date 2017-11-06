@@ -12,4 +12,3 @@ rm_constant_columns(data)
 \description{
 Remove columns with zero variance
 }
-

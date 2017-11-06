@@ -16,4 +16,3 @@ mapping(long, lat, clusters)
 \description{
 Using map database draw cluster on the US Map
 }
-

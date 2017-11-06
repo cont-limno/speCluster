@@ -43,4 +43,3 @@ latLong = latLong18876, NB18876, islandsIn = FALSE, states = c("MO"),
 conFactor = 1)
 }
 }
-

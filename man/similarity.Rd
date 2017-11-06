@@ -17,4 +17,3 @@ similarity: The similarity matrix
 \description{
 Compute similarity matrix then multiply it to contiguity matrix
 }
-

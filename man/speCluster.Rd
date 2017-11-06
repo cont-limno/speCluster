@@ -28,4 +28,3 @@ A list contains two parts:
 \description{
 Perform Spectral Clustering on a data matrix
 }
-

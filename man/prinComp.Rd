@@ -20,4 +20,3 @@ dataNew: After Principal component data
 Run the pricnipal componenet algroithm on the data
 to reduce dimension
 }
-

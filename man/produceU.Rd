@@ -22,4 +22,3 @@ n by ncol numeric matrix that contains the ncol tops
 \description{
 Given n by n similarity this function first calculate the Laplacian
 }
-
