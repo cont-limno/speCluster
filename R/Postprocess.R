@@ -2,7 +2,8 @@
 #File description comment, including purpose of program, inputs
 # and outputs
 
-
+#' sumSquares
+#' @export
 sumSquares <- function(data, clusters){
   # Given the data and clusters vector this function computes
   # the between and within sum squered errors
@@ -31,7 +32,7 @@ sumSquares <- function(data, clusters){
     }
     ssb[i] <- sum(j)*sum((centerw-center)^2)
   }
-  out <- list(SSW=sum(ssw),SSB=sum(ssb))
+  out <- list(SSW=sum(ssw),SSB=sum(ssb), SSWlist = ssw)
   return(out)
 }
 

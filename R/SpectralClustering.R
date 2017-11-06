@@ -5,7 +5,7 @@
 #' @param data n by p numeric matrix or data frame.
 #' @param neighbors n by n numeric matrix which specifies contiguity matrix.
 #' @return similarity: The similarity matrix
-
+#' @export
 similarity <- function(data, neighbors){
   dist <- as.matrix(dist(data) )
   sigma <- stats::median(dist)
@@ -26,6 +26,7 @@ similarity <- function(data, neighbors){
 #' @param all.eig a logical value indicating whether all the eigenvector should be compute or not
 #' @return n by ncol numeric matrix that contains the ncol tops
 #'        eigenvectors of Laplacian matrix as column
+#' @export
 
 produceU <- function(similarity, ncol, type = 2, all.eig = FALSE){
 
@@ -98,6 +99,7 @@ if(type==3){
 #'                  as the initial centers
 #' @return cluster: A vector of integers(from 1:cluster.number) indicating the cluster to each point is allocated
 #' @importFrom stats kmeans
+#' @export
 
 kmeansU <- function(data, cluster.number,
                    repetition = 400, iter.max = 400){

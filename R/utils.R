@@ -1,3 +1,5 @@
+#' stepOne
+#' @export
 stepOne <- function(data, conMatrix, ncol){
   # This function Computes the data after Principal component
   #
@@ -29,6 +31,8 @@ stepOne <- function(data, conMatrix, ncol){
   return(out)
 }
 
+#' stepTwo
+#' @export
 stepTwo <- function(data, U, cluster.number= cluster.number,
                     iter.max=400, repetition=400){
   # Perform Spectral Clustering on U matrix.
@@ -136,7 +140,7 @@ generateData <- function(type, islands, latLong, NB18876, islandsIn = FALSE,
   latLong   <- latLong[index,]
 
   NB        <- NBindex(index, NB18876)
-  browser()
+  # browser()
   conMatrix <- neighborMatrix(NB, conFactor = conFactor)
 
   list(data = data, conMatrix = conMatrix, latLong = latLong)
