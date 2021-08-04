@@ -2,7 +2,7 @@ Package: speCluster
 Title: Spectral Clustering in R
 Version: 0.0.1
 Authors@R: c(
-    person("Joseph", "Stachelek", email = "stachel2@msu.edu", role = c("aut", "cre")), 
+    person("Jemma", "Stachelek", email = "stachel2@msu.edu", role = c("aut", "cre")), 
     person("Farzan", "Masrour", role = c("ctb"))
   )
 Description: Spectral clustering in R.
