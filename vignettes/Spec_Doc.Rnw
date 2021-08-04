@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}%jsta
 
 \author{Farzan Masrour\
-        \and Joseph Stachelek}
+        \and Jemma Stachelek}
 \title{Tutorial on How to use Spectral Clustering Algorithm for Creating Regions from Geospatial Data}
 
 %\VignetteIndexEntry{Tutorial on How to use Spectral Clustering Algorithm for Creating Regions from Geospatial Data} \\
